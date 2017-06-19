@@ -30,27 +30,34 @@ seg_width = np.random.rand(numseg)*0.1+0.1
 seg_str = np.random.rand(numseg)*0.7
 seg_end = seg_str+seg_width
 
-# get minimum left edge
-lcomp = np.min(seg_str)
-lcomp_ind = np.argmin(seg_str)
-rcomp = seg_end[lcomp_ind]
-print lcomp, rcomp
-
-# find left edges >= lcomp and <= rcomp
-lcomps = np.ma.masked_all([numseg])
-rcomps = np.ma.masked_all([numseg])
-lcomp, rcomp = get_overlap_bounds(seg_str, seg_end, lcomp, rcomp)
-print lcomp, rcomp
-
-# determine if there are additional segments to be analyzed
-add_seg_inds = np.arange(numseg)[seg_str>rcomp]
-num_add_seg = len(add_seg_inds)
-print add_seg_inds, num_add_seg
-
 for i in range(numseg):
     # plot
     plt.plot([seg_str[i], seg_end[i]], [numseg-i, numseg-i], 'b-', lw=3.)
-plt.scatter(lcomp, numseg-lcomp_ind, c='r', s=300)
-plt.scatter(rcomp, numseg-lcomp_ind, c='g', s=300)
-plt.savefig('segments.png')
 
+# loop over groups of overlapping segments until there are no more
+num_add_seg = numseg
+lcomps = np.ma.masked_all([numseg])
+rcomps = np.ma.masked_all([numseg])
+
+while num_add_seg>0:
+    # get minimum left edge
+    lcomp = np.min(seg_str)
+    lcomp_ind = np.argmin(seg_str)
+    rcomp = seg_end[lcomp_ind]
+    print lcomp, rcomp
+
+    # find left edges >= lcomp and <= rcomp
+    lcomp, rcomp = get_overlap_bounds(seg_str, seg_end, lcomp, rcomp)
+    print lcomp, rcomp
+
+    plt.scatter(lcomp, numseg-lcomp_ind, c='r', s=300)
+    plt.scatter(rcomp, numseg-lcomp_ind, c='g', s=300)
+
+    # determine if there are additional segments to be analyzed
+    add_seg_inds = np.arange(num_add_seg)[seg_str>rcomp]
+    num_add_seg = len(add_seg_inds)
+    print add_seg_inds, num_add_seg
+    seg_str = seg_str[add_seg_inds]
+    seg_end = seg_end[add_seg_inds]
+
+plt.savefig('segments.png')

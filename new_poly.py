@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
+from create_stellar import make_stellar
 
 # rotate x and y points
 def rotate(x, y, angle):
@@ -58,12 +59,14 @@ def inpolygon(poly_x, poly_y, point_x, point_y):
 
     return indicate
 
-# create polygon of square
+# create polygon of stellar crystal
 a = 1.
+fbranch = 0.2
 #x = np.array([a, a, -a, -a, a])
 #y = np.array([-a, a, a, -a, -a])
-x = np.array([-a, -a, a, a, -a])
-y = np.array([a, -a, -a, a, a])
+#x = np.array([-a, -a, a, a, -a])
+#y = np.array([a, -a, -a, a, a])
+x, y = make_stellar(fbranch, a)
 x, y = rotate(x, y, 0.)
 
 # test points

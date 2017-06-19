@@ -48,6 +48,6 @@ def in_polygon(x_poly, y_poly, x_point, y_point):
     # get overlapping segment bounds and calculate covered fraction
     over_left, over_right = get_overlap_segments(seg_left, seg_right)
     cf = get_coverage_fraction(over_left, over_right, 1.)
-    indicator = int(min(cf, 1.))
-    print cf, indicator
+    indicator = int(cf)
+
     return indicator

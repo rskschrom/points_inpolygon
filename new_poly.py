@@ -71,39 +71,22 @@ x, y = make_stellar(fbranch, a)
 x, y = rotate(x, y, 30.)
 
 # test points
-npoints = 1000
-xrand = 3.*(np.random.rand(npoints)-0.5)
-yrand = 3.*(np.random.rand(npoints)-0.5)
-indicator = np.empty([npoints])
+numxp = 200
+numyp = 200
+x2d, y2d = np.meshgrid(np.linspace(-1.5, 1.5, numxp),
+                       np.linspace(-1.5, 1.5, numyp), indexing='ij')
+xp = x2d.flatten()
+yp = y2d.flatten()
+indicator = np.empty([numxp*numyp])
 
-'''
-# test specific points
-xrand[0] = 0.0
-yrand[0] = -0.7
-
-indi = in_polygon(x, y, xrand[0], yrand[0])
-print indi
-
-#plot
-plt.figure(1)
-plt.scatter(xrand[0], yrand[0], c='k', s=50)
-plt.plot(x, y, 'r--', linewidth=3.)
-
-ax = plt.gca()
-ax.set_aspect(1.)
-ax.grid()
-plt.savefig('new_poly.png')
-'''
-
-for i in range(npoints):
-    xtest = xrand[i]
-    ytest = yrand[i]
-    print 'doing point {:0d}, location: ({:.2f}, {:.2f})'.format(i, xtest, ytest)
-    indicator[i] = in_polygon(x, y, xtest, ytest)
+for i in range(numxp*numyp):
+    #xtest = xp[i]
+    #ytest = yp[i]
+    #print 'doing point {:0d}, location: ({:.2f}, {:.2f})'.format(i, xtest, ytest)
+    indicator[i] = in_polygon(x, y, xp[i], yp[i])
 
 #plot
-plt.scatter(xrand, yrand, c=indicator, cmap='Accent', s=50)
-#plt.scatter(x_dda_scale, y_dda_scale, s=10)
+plt.scatter(xp, yp, c=indicator, cmap='Accent', s=1, edgecolor='')
 plt.plot(x, y, 'r--', linewidth=3.)
 
 ax = plt.gca()

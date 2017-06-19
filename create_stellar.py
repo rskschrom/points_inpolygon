@@ -21,7 +21,6 @@ def make_stellar_triangle(fbranch, p1, p2):
 
     s1 = p1+t*fbranch*segmag/2.
     s2 = midpoint+t*(1.-fbranch)*segmag/2.
-    print s1, s2
     s3 = s2+segmag*(1.-fbranch)*(n*np.sqrt(3.)/2.-t/2.)
     return s1, s2, s3
 

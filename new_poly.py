@@ -3,6 +3,7 @@ import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
 from create_stellar import make_stellar
+from in_polygon import in_polygon
 
 # rotate x and y points
 def rotate(x, y, angle):
@@ -61,7 +62,7 @@ def inpolygon(poly_x, poly_y, point_x, point_y):
 
 # create polygon of stellar crystal
 a = 1.
-fbranch = 0.2
+fbranch = 1.
 #x = np.array([a, a, -a, -a, a])
 #y = np.array([-a, a, a, -a, -a])
 #x = np.array([-a, -a, a, a, -a])
@@ -75,19 +76,40 @@ xrand = 3.*(np.random.rand(npoints)-0.5)
 yrand = 3.*(np.random.rand(npoints)-0.5)
 indicator = np.empty([npoints])
 
-for i in range(npoints):
-    xtest = xrand[i]
-    ytest = yrand[i]
-    print 'doing point {:0d}, location: ({:.2f}, {:.2f})'.format(i, xtest, ytest)
-    indicator[i] = inpolygon(x, y, xtest, ytest)
+'''
+# test specific points
+xrand[0] = -1.0
+yrand[0] = 0.
+
+indi = in_polygon(x, y, xrand[0], yrand[0])
+print indi
 
 #plot
-plt.scatter(xrand, yrand, c=indicator,cmap='Accent', s=50)
-#plt.scatter(x_dda_scale, y_dda_scale, s=10)
+plt.figure(1)
+plt.scatter(xrand[0], yrand[0], c='k', s=50)
 plt.plot(x, y, 'r--', linewidth=3.)
 
 ax = plt.gca()
 ax.set_aspect(1.)
 ax.grid()
 plt.savefig('new_poly.png')
+'''
 
+for i in range(npoints):
+    xtest = xrand[i]
+    ytest = yrand[i]
+    print 'doing point {:0d}, location: ({:.2f}, {:.2f})'.format(i, xtest, ytest)
+    indicator[i] = in_polygon(x, y, xtest, ytest)
+
+print indicator
+
+#plot
+plt.scatter(xrand, yrand, c=indicator, cmap='Accent', s=50)
+#plt.scatter(x_dda_scale, y_dda_scale, s=10)
+plt.plot(x, y, 'r--', linewidth=3.)
+
+ax = plt.gca()
+ax.set_aspect(1.)
+
+ax.grid()
+plt.savefig('new_poly.png')

@@ -31,8 +31,8 @@ def angles2segments(ang1, ang2):
     ang_left[deal_cond] = 0.
     
     # add additional aliased segments from ang<2.*pi to 2.*np.pi
-    np.append(ang_left, ang_temp)
-    np.append(ang_right, np.linspace(np.pi*2., np.pi*2., len(ang_temp)))
+    ang_left = np.append(ang_left, ang_temp)
+    ang_right = np.append(ang_right, np.linspace(np.pi*2., np.pi*2., len(ang_temp)))
 
     seg_left = ang_left/(2.*np.pi)
     seg_right = ang_right/(2.*np.pi)
@@ -48,6 +48,6 @@ def in_polygon(x_poly, y_poly, x_point, y_point):
     # get overlapping segment bounds and calculate covered fraction
     over_left, over_right = get_overlap_segments(seg_left, seg_right)
     cf = get_coverage_fraction(over_left, over_right, 1.)
-    indicator = int(2.*min(cf, 0.5))
-    #print cf, indicator
+    indicator = int(min(cf, 1.))
+    print cf, indicator
     return indicator

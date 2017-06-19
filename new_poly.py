@@ -62,7 +62,7 @@ def inpolygon(poly_x, poly_y, point_x, point_y):
 
 # create polygon of stellar crystal
 a = 1.
-fbranch = 1.
+fbranch = 0.6
 #x = np.array([a, a, -a, -a, a])
 #y = np.array([-a, a, a, -a, -a])
 #x = np.array([-a, -a, a, a, -a])
@@ -78,8 +78,8 @@ indicator = np.empty([npoints])
 
 '''
 # test specific points
-xrand[0] = -1.0
-yrand[0] = 0.
+xrand[0] = 0.0
+yrand[0] = -0.7
 
 indi = in_polygon(x, y, xrand[0], yrand[0])
 print indi
@@ -100,8 +100,6 @@ for i in range(npoints):
     ytest = yrand[i]
     print 'doing point {:0d}, location: ({:.2f}, {:.2f})'.format(i, xtest, ytest)
     indicator[i] = in_polygon(x, y, xtest, ytest)
-
-print indicator
 
 #plot
 plt.scatter(xrand, yrand, c=indicator, cmap='Accent', s=50)

@@ -69,17 +69,19 @@ def get_overlap_segments(seg_str, seg_end):
         rcomps[ct] = rcomp
         ct = ct+1
 
+    '''
     # plot
-    #plt.figure(0)
-    #for i in range(len(str_copy)):
-    #    plt.plot([str_copy[i], end_copy[i]], [len(str_copy)-i, len(end_copy)-i], 'b-', lw=3.)
+    plt.figure(0)
+    for i in range(len(str_copy)):
+        plt.plot([str_copy[i], end_copy[i]], [len(str_copy)-i, len(end_copy)-i], 'b-', lw=3.)
 
-    #seg_ind = [len(seg_str)+1]*len(lcomps)
+    seg_ind = [len(seg_str)+1]*len(lcomps)
 
-    #for i in range(len(lcomps)):
-    #    plt.plot([lcomps[i], rcomps[i]], [len(str_copy)+1, len(str_copy)+1], 'm-', lw=3.)
+    for i in range(len(lcomps)):
+        plt.plot([lcomps[i], rcomps[i]], [len(str_copy)+1, len(str_copy)+1], 'm-', lw=3.)
 
-    #plt.savefig('segments.png')
+    plt.savefig('segments.png')
+    '''
 
     return lcomps, rcomps
 

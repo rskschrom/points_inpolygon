@@ -67,7 +67,7 @@ fbranch = 0.2
 #x = np.array([-a, -a, a, a, -a])
 #y = np.array([a, -a, -a, a, a])
 x, y = make_stellar(fbranch, a)
-x, y = rotate(x, y, 0.)
+x, y = rotate(x, y, 30.)
 
 # test points
 npoints = 1000
@@ -82,7 +82,7 @@ for i in range(npoints):
     indicator[i] = inpolygon(x, y, xtest, ytest)
 
 #plot
-plt.scatter(xrand, yrand, c=indicator,cmap='Accent', s=300)
+plt.scatter(xrand, yrand, c=indicator,cmap='Accent', s=50)
 #plt.scatter(x_dda_scale, y_dda_scale, s=10)
 plt.plot(x, y, 'r--', linewidth=3.)
 

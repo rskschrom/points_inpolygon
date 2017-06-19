@@ -23,7 +23,7 @@ def get_overlap_bounds(seg_mins, seg_maxs, min_init, max_init):
     num_overlap = 2
     ct = 0
 
-    while (num_overlap>1)and(ct<29):
+    while (num_overlap>1)and(ct<len(seg_mins)):
         j_inds = [(seg_mins>=min_jmax)&(seg_mins<=max_jmax)&(seg_maxs>=max_jmax)]
         min_j = seg_mins[j_inds]
         max_j = seg_maxs[j_inds]

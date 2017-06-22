@@ -69,20 +69,6 @@ def get_overlap_segments(seg_str, seg_end):
         rcomps[ct] = rcomp
         ct = ct+1
 
-    '''
-    # plot
-    plt.figure(0)
-    for i in range(len(str_copy)):
-        plt.plot([str_copy[i], end_copy[i]], [len(str_copy)-i, len(end_copy)-i], 'b-', lw=3.)
-
-    seg_ind = [len(seg_str)+1]*len(lcomps)
-
-    for i in range(len(lcomps)):
-        plt.plot([lcomps[i], rcomps[i]], [len(str_copy)+1, len(str_copy)+1], 'm-', lw=3.)
-
-    plt.savefig('segments.png')
-    '''
-
     return lcomps, rcomps
 
 # calculate fractional coverage of overlapping segments
@@ -90,28 +76,3 @@ def get_coverage_fraction(left_edges, right_edges, domain_length):
     seg_lengths = right_edges-left_edges
     cov_frac = np.sum(seg_lengths)/domain_length
     return cov_frac
-
-'''
-# create random line segments
-numseg = 10
-seg_width = np.random.rand(numseg)*0.1+0.03
-seg_str = np.random.rand(numseg)*0.7
-seg_end = seg_str+seg_width
-
-lcomps, rcomps = get_overlap_segments(seg_str, seg_end)
-cov_frac = get_coverage_fraction(lcomps, rcomps, 1.)
-print cov_frac
-
-# plot
-for i in range(numseg):
-    plt.plot([seg_str[i], seg_end[i]], [numseg-i, numseg-i], 'b-', lw=3.)
-
-seg_ind = [numseg+1]*len(lcomps)
-#plt.scatter(lcomps, seg_ind, c='r', s=300)
-#plt.scatter(rcomps, seg_ind, c='g', s=300)
-
-for i in range(len(lcomps)):
-    plt.plot([lcomps[i], rcomps[i]], [numseg+1, numseg+1], 'm-', lw=3.)
-
-plt.savefig('segments.png')
-'''

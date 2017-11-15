@@ -3,6 +3,7 @@ import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
 from create_stellar import make_stellar
+from create_branched_planar import make_branched_planar
 from in_polygon import in_polygon
 
 # rotate x and y points
@@ -12,24 +13,31 @@ def rotate(x, y, angle):
     yrot = x*np.sin(ang_rad)+y*np.cos(ang_rad)
     return xrot, yrot
 
-# create polygon of stellar crystal
-a = 1.
-fbranch = 0.6
-#x = np.array([a, a, -a, -a, a])
-#y = np.array([-a, a, a, -a, -a])
-#x = np.array([-a, -a, a, a, -a])
-#y = np.array([a, -a, -a, a, a])
-x, y = make_stellar(fbranch, a)
-x, y = rotate(x, y, 30.)
+# create branched planar crystal
+amax = 2.
+ac = 0.2
+ag = 1.5
+ft = 0.4
+fb = 0.4
+fmb = 0.3
+nsb = 9
 
 # test points
 numxp = 100
 numyp = 100
-x2d, y2d = np.meshgrid(np.linspace(-1.5, 1.5, numxp),
-                       np.linspace(-1.5, 1.5, numyp), indexing='ij')
+x2d, y2d = np.meshgrid(np.linspace(-amax, amax, numxp),
+                       np.linspace(-amax, amax, numyp), indexing='ij')
 xp = x2d.flatten()
 yp = y2d.flatten()
 indicator = np.empty([numxp*numyp])
+diplen = 2.*amax/(numxp-1)
+
+print diplen, ac, diplen/ac
+
+x, y = make_branched_planar(amax, ac, ag, ft, fb, fmb, nsb, diplen)
+x, y = rotate(x, y, 30.)
+
+
 
 for i in range(numxp*numyp):
     #xtest = xp[i]
